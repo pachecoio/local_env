@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  ubuntu:
+    image: thisk8brd/ubuntu-sandbox
+    build:
+      context: .
+    container_name: ubuntu
+

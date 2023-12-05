@@ -1,0 +1,10 @@
+---
+- name: Local setup
+  hosts: localhost
+  become: false
+
+  tasks:
+    - include_tasks: tmux.yaml
+      tags:
+        - tmux
+        - terminal

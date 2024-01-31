@@ -1,22 +1,14 @@
 - name: Install Fish
   block:
     - name: Install fish
-      become: yes
-      become_user: root
       ansible.builtin.apt:
         name: zsh
         state: present
 
 - name: Change shell to zsh
-  become: no
-  vars:
-    the_user: "{{ ansible_user_id }}"
-  block:
-    - name: Set zsh as default shell
-      become: yes
-      user:
-        name: "{{ the_user }}"
-        shell: /bin/zsh
+  become: yes
+  become_user: root
+  shell: chsh -s `which zsh`
 
 - name: Cleanup ohmyzsh
   ansible.builtin.shell: >

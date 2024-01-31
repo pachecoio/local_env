@@ -1,0 +1,55 @@
+- name: Install neovim
+  become: true
+  become_user: root
+
+  block:
+    - name: Install neovim python dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ python_required_packages }}"
+      tags:
+        - nvim
+        - nvim-python-packages
+    - name: Install you complete me dependencies
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ ycm_packages }}"
+      tags:
+        - nvim
+        - ycm
+
+- name: Install neovim
+  become: true
+  become_user: root
+  block:
+    - name: Add neovim ppa
+      apt_repository:
+        repo: "{{ neovim_ppa }}"
+        state: present
+      when: ansible_os_family == "Debian"
+
+    - name: Install neovim from ppa
+      apt:
+        name: "{{ neovim_name }}"
+        state: "{{ install_state }}"
+
+  tags:
+    - nvim
+
+- name: Create nvim dir
+  ansible.builtin.file:
+    path: ~/.config/nvim
+    state: directory
+    mode: '0755'
+
+- name: Cleanup nvim config folder
+  shell: >
+    rm -rf ~/.config/nvim/*
+
+- name: Install custom nvim conf
+  ansible.builtin.shell: >
+    stow -t ~/.config/nvim/ -d dotfiles neovim

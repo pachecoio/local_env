@@ -1,0 +1,35 @@
+- name: Install Fish
+  block:
+    - name: Install fish
+      become: yes
+      become_user: root
+      ansible.builtin.apt:
+        name: zsh
+        state: present
+
+- name: Change shell to zsh
+  become: no
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  block:
+    - name: Set zsh as default shell
+      become: yes
+      user:
+        name: "{{ the_user }}"
+        shell: /bin/zsh
+
+- name: Cleanup ohmyzsh
+  ansible.builtin.shell: >
+    rm -rf ~/.oh-my-zsh
+
+- name: install Oh My Zsh
+  ansible.builtin.shell: >
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+
+- name: Install ohmyzsh autosuggestions
+  ansible.builtin.git:
+    dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    repo: "https://github.com/zsh-users/zsh-autosuggestions"
+- name: Update zshrc
+  shell: echo "plugins=(git zsh-autosuggestions)" >> ~/.zshrc

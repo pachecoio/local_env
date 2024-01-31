@@ -23,3 +23,6 @@
       tags:
         - fonts
         - terminal
+    - include_tasks: terminal.yaml
+      tags:
+        - terminal

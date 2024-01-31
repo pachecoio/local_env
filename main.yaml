@@ -26,3 +26,13 @@
     - include_tasks: terminal.yaml
       tags:
         - terminal
+
+    - include_tasks: node.yaml
+      tags:
+        - nvm
+        - node
+
+    - include_tasks: python.yaml
+      tags:
+        - pyenv
+        - python

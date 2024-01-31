@@ -1,0 +1,14 @@
+- name: Install Pyenv
+  ansible.builtin.homebrew:
+    name: pyenv
+    state: present
+    update_homebrew: yes
+- name: Add pyenv to path
+  ansible.builtin.shell: >
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc
+    echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc
+    echo 'eval "$(pyenv init -)"' >> ~/.zshrc
+  args:
+    creates: "{{ ansible_env.HOME }}/.pyenv"
+
+

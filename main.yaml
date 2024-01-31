@@ -21,6 +21,10 @@
       tags:
         - terminal
 
+    - include_tasks: brew.yaml
+      tags:
+        - brew
+
     - include_tasks: ssh.yaml
       tags:
         - ssh
@@ -58,3 +62,11 @@
     - include_tasks: neovim.yaml
       tags:
         - nvim
+
+    # Tooling
+    - include_tasks: fzf.yaml
+      tags:
+        - tooling
+    - include_tasks: ripgrep.yaml
+      tags:
+        - tooling

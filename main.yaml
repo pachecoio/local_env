@@ -17,6 +17,10 @@
       - cmake
 
   tasks:
+    - include_tasks: terminal.yaml
+      tags:
+        - terminal
+
     - include_tasks: ssh.yaml
       tags:
         - ssh
@@ -35,24 +39,18 @@
       tags:
         - fonts
         - terminal
-    - include_tasks: terminal.yaml
-      tags:
-        - terminal
 
     - include_tasks: node.yaml
       tags:
         - nvm
         - node
-
     - include_tasks: python.yaml
       tags:
         - pyenv
         - python
-
     - include_tasks: rust.yaml
       tags:
         - rust
-
     - include_tasks: golang.yaml
       tags:
         - golang

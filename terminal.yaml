@@ -18,10 +18,16 @@
   ansible.builtin.shell: >
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-
 - name: Install ohmyzsh autosuggestions
   ansible.builtin.git:
-    dest: "~/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+    dest: "~/.zsh/zsh-autosuggestions"
     repo: "https://github.com/zsh-users/zsh-autosuggestions"
-- name: Update zshrc
-  shell: echo "plugins=(git zsh-autosuggestions)" >> ~/.zshrc
+- name: Source zsh autosuggestions
+  lineinfile:
+    path: ~/.zshrc
+    line: "source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+- name: Add autosuggestions plugin to zsh
+  lineinfile:
+    path: ~/.zshrc
+    line: "plugins=(git zsh-autosuggestions)"

@@ -12,6 +12,9 @@
       tags:
         - ssh
         - terminal
+    - include_tasks: git.yaml
+      tags:
+        - git
     - include_tasks: stow.yaml
       tags:
         - stow

@@ -1,0 +1,17 @@
+---
+- name: Local setup
+  hosts: localhost
+
+  tasks:
+
+    - include_tasks: stow.yaml
+      tags:
+        - stow
+    - include_tasks: tmux.yaml
+      tags:
+        - tmux
+        - terminal
+    - include_tasks: fonts.yaml
+      tags:
+        - fonts
+        - terminal

@@ -1,0 +1,19 @@
+- name: Install fonts
+  block:
+    - name: Ensure fonts folder exist
+      ansible.builtin.file:
+        path: ~/.fonts
+        state: directory
+        mode: '0755'
+    - name: Download Ubuntu nerd font
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.zip
+        dest: ~/.fonts
+        remote_src: yes
+    - name: Install downloaded font
+      ansible.builtin.shell: >
+        fc-cache -fv
+
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - fonts

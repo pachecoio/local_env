@@ -1,0 +1,11 @@
+- name: Install stow Linux
+  become: yes
+  become_user: root
+  block:
+    - name: Install Stow
+      ansible.builtin.apt:
+        name: stow
+        state: present
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - stow

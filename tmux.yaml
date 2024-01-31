@@ -1,24 +1,12 @@
-- name: Setup TMUX on Macos
+- name: Setup TMUX
   tags:
     - tmux
     - terminal
   block:
-    - name: Install TMUX
+    - name: Install tmux
       ansible.builtin.homebrew:
         name: tmux
         state: present
-  when: ansible_facts['os_family'] == "Darwin"
-
-- name: Setup TMUX on Linux
-  block:
-    - name: Install TMUX
-      shell: |
-        apt-get install tmux -y
-  when: ansible_facts['os_family'] == "Debian"
-  tags:
-    - tmux
-    - terminal
-
 
 - name: Setup TMUX config
   tags:
@@ -29,79 +17,3 @@
       ansible.builtin.git:
         repo: "https://github.com/tmux-plugins/tpm"
         dest: "~/.tmux/plugins/tpm"
-    - name: Include TMUX package manager config
-      ansible.builtin.blockinfile:
-        path: ~/.tmux.conf
-        create: yes
-        block: |
-          # List of plugins
-          set -g @plugin 'tmux-plugins/tpm'
-          set -g @plugin 'tmux-plugins/tmux-sensible'
-
-          # Other examples:
-          # set -g @plugin 'github_username/plugin_name'
-          # set -g @plugin 'github_username/plugin_name#branch'
-          # set -g @plugin 'git@github.com:user/plugin'
-          # set -g @plugin 'git@bitbucket.com:user/plugin'
-
-    - name: Add custom TMUX config
-      ansible.builtin.blockinfile:
-        path: ~/.tmux.conf
-        block: |
-          set -g @plugin 'christoomey/vim-tmux-navigator'
-          set -g @plugin "janoamaral/tokyo-night-tmux"
-
-          set -g @plugin "tmux-plugins/tmux-yank"
-          # Allows yanking values form the buffer history
-          # Enter copy mode by using <prefix> [
-          # copy the desired line with y like in vim mode
-          set-window-option -g mode-keys vi
-          bind-key -T copy-mode-vi v send-keys -X begin-selection
-          bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-          bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-
-          set -g mouse on
-          set -s escape-time 0
-          set -g status-interval 0
-          
-          set-option -g default-shell /bin/zsh
-          
-          # Set prefix
-          set-option -g prefix C-b
-          
-          # Split vertical
-          bind-key v split-window -h -c "#{pane_current_path}"
-          # Split Horizontal
-          bind-key h split-window -v -c "#{pane_current_path}"
-          
-          # Reload config
-          bind-key r source-file ~/.tmux.conf \; display-message "Config reloaded.."
-          
-          # Navigate window
-          bind-key h select-pane -L
-          bind-key j select-pane -D
-          bind-key k select-pane -U
-          bind-key l select-pane -R
-
-          set-option -sa terminal-overrides ",xterm*:Tc"
-
-          # Start windows and panes at 1, not 0
-          set -g base-index 1
-          set -g pane-base-index 1
-
-          # Resize tmux window
-          bind -n S-Left resize-pane -L 5
-          bind -n S-Right resize-pane -R 5
-          bind -n S-Up resize-pane -U 5
-          bind -n S-Down resize-pane -D 5
-
-
-    - name: Add tmux run block
-      ansible.builtin.lineinfile:
-        path: ~/.tmux.conf
-        line: run '~/.tmux/plugins/tpm/tpm'
-    - name: Reload TMUX
-      shell: |
-        tmux source ~/.tmux.conf
-
-

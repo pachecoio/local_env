@@ -1,0 +1,20 @@
+- name: Get latest Go version
+  shell: |
+    curl -s https://golang.org/dl/ | grep -oP '(?<=go)[0-9\.]+(?=\.[0-9]+)' | head -n 1
+  register: go_version
+- name: Install Go Macos
+  shell: |
+    curl -s https://golang.org/dl/go{{ go_version.stdout }}.darwin-amd64.tar.gz | tar -C /usr/local -xzf -
+  when: ansible_os_family == "Darwin"
+- name: Install Go Linux
+  when: ansible_os_family == "Debian"
+  become: yes
+  become_user: root
+  block:
+    - name: Cleanup golang folder
+      shell: 'rm -rf /usr/local/go'
+    - name: Download and unarchive golang
+      ansible.builtin.unarchive:
+        src: https://go.dev/dl/go1.21.6.linux-amd64.tar.gz
+        dest: /usr/local
+        remote_src: yes

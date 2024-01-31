@@ -36,3 +36,11 @@
       tags:
         - pyenv
         - python
+
+    - include_tasks: rust.yaml
+      tags:
+        - rust
+
+    - include_tasks: golang.yaml
+      tags:
+        - golang

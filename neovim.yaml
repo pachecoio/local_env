@@ -52,4 +52,4 @@
 
 - name: Install custom nvim conf
   ansible.builtin.shell: >
-    stow -t ~/.config/nvim/ -d dotfiles neovim
+    stow -t ~/.config/nvim/ -d dotfiles nvim

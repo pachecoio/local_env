@@ -1,0 +1,3 @@
+[submodule "dotfiles/nvim"]
+	path = dotfiles/nvim
+	url = git@github.com:pachecoio/custom_nvim_config.git

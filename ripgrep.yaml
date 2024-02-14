@@ -2,3 +2,12 @@
   apt:
     name: ripgrep
     state: present
+  when: ansible_os_family == "Debian"
+
+- name: Install ripgrep macos
+  ansible.builtin.homebrew:
+    name: ripgrep
+    state: present
+    update_homebrew: yes
+  when: ansible_os_family == "Darwin"
+

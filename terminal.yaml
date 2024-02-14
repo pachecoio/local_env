@@ -4,6 +4,7 @@
       ansible.builtin.apt:
         name: zsh
         state: present
+      when: ansible_os_family == "Debian"
 
 - name: Change shell to zsh
   become: yes

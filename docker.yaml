@@ -6,3 +6,4 @@
       shell: >
         curl -fsSL https://get.docker.com | sh --dry-run
         curl -sSf https://sh.rustup.rs | sh -s -- -y
+      when: ansible_os_family == "Debian"

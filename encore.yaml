@@ -8,7 +8,7 @@
         - name: Add encore variable
           lineinfile:
             path: ~/.zshrc
-            line: export ENCORE_INSTALL="/home/pacheco/.encore"
+            line: export ENCORE_INSTALL="~/.encore"
         - name: Add encore to path
           lineinfile:
             path: ~/.zshrc

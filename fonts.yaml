@@ -1,4 +1,4 @@
-- name: Install fonts
+- name: Install fonts Linux
   block:
     - name: Ensure fonts folder exist
       ansible.builtin.file:
@@ -18,7 +18,22 @@
     - name: Install downloaded fonts
       ansible.builtin.shell: >
         fc-cache -fv
+  when: ansible_facts['os_family'] == "Debian"
+  tags:
+    - fonts
 
-  # when: ansible_facts['os_family'] == "Debian"
+- name: Install fonts Macos
+  block:
+    - name: Download Ubuntu nerd font
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.zip
+        dest: ~/Library/Fonts
+        remote_src: yes
+    - name: Download Noto nerd font
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Noto.zip
+        dest: ~/Library/Fonts
+        remote_src: yes
+  when: ansible_facts['os_family'] == "Darwin"
   tags:
     - fonts

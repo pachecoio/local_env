@@ -9,3 +9,13 @@
   when: ansible_facts['os_family'] == "Debian"
   tags:
     - stow
+
+- name: Install stow Macos
+  ansible.builtin.homebrew:
+    name: stow
+    state: present
+    update_homebrew: yes
+  when: ansible_os_family == "Darwin"
+  tags:
+    - stow
+

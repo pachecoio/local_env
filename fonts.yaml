@@ -10,10 +10,15 @@
         src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Ubuntu.zip
         dest: ~/.fonts
         remote_src: yes
-    - name: Install downloaded font
+    - name: Download Noto nerd font
+      ansible.builtin.unarchive:
+        src: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Noto.zip
+        dest: ~/.fonts
+        remote_src: yes
+    - name: Install downloaded fonts
       ansible.builtin.shell: >
         fc-cache -fv
 
-  when: ansible_facts['os_family'] == "Debian"
+  # when: ansible_facts['os_family'] == "Debian"
   tags:
     - fonts

@@ -39,6 +39,11 @@
       tags:
         - tmux
         - terminal
+
+    - include_tasks: gdebi.yaml
+      tags:
+        - gdebi
+
     - include_tasks: fonts.yaml
       tags:
         - fonts

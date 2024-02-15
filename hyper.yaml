@@ -1,13 +1,41 @@
 - name: Install hyper terminal
   block:
-    - name: Install hyper
+    - name: Install hyper macos
       ansible.builtin.homebrew:
         name: hyper
         state: present
         update_homebrew: yes
       ignore_errors: yes
+      when: ansible_os_family == "Darwin"
+
+    - name: Install hyper ubuntu
+      when: ansible_os_family == "Debian"
+      block:
+        - name: Ensure hyper folder exists
+          become: true
+          become_user: root
+          ansible.builtin.file:
+            path: /opt/hyper
+            state: directory
+            mode: '0755'
+        - name: Download hyper image
+          become: true
+          become_user: root
+          get_url:
+            url: https://releases.hyper.is/download/AppImage
+            dest: /opt/hyper/hyper.appimage
+            mode: '0755'
+          # shell: |
+          #   wget -O /opt/hyper/hyper.appimage https://releases.hyper.is/download/AppImage
+          #   chmod u+x /opt/hyper/hyper.appimage
+        - name: Add hyper to path
+          lineinfile:
+            path: ~/.zshrc
+            line: export PATH="$PATH:/opt/hyper/"
+        - name: Add custom application launcher
+          ansible.builtin.shell: >
+            stow -t ~/.local/share/applications -d dotfiles hyper_launcher
 
     - name: Add hyper configuration file
       ansible.builtin.shell: >
         stow -t ~/ -d dotfiles hyper
-

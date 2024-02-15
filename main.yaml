@@ -58,10 +58,10 @@
     - include_tasks: golang.yaml
       tags:
         - golang
-    - include_tasks: encore.yaml
-      tags:
-        - golang
-        - encore
+    # - include_tasks: encore.yaml
+    #   tags:
+    #     - golang
+    #     - encore
 
     - include_tasks: neovim.yaml
       tags:
@@ -78,3 +78,7 @@
     - include_tasks: docker.yaml
       tags:
         - docker
+
+    - include_tasks: hyper.yaml
+      tags:
+        - hyper

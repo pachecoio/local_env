@@ -1,0 +1,13 @@
+- name: Install hyper terminal
+  block:
+    - name: Install hyper
+      ansible.builtin.homebrew:
+        name: hyper
+        state: present
+        update_homebrew: yes
+      ignore_errors: yes
+
+    - name: Add hyper configuration file
+      ansible.builtin.shell: >
+        stow -t ~/ -d dotfiles hyper
+

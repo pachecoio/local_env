@@ -32,3 +32,4 @@
   lineinfile:
     path: ~/.zshrc
     line: "plugins=(git zsh-autosuggestions)"
+

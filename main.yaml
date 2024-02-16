@@ -87,3 +87,7 @@
     - include_tasks: hyper.yaml
       tags:
         - hyper
+
+    - include_tasks: kitty.yaml
+      tags:
+        - kitty

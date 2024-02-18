@@ -5,7 +5,7 @@
   vars:
     source_key: "./files/id_ed25519"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
-    go_version: "1.20"
+    go_version: "1.22"
 
     neovim_name: neovim
     neovim_ppa: ppa:neovim-ppa/unstable
@@ -91,3 +91,7 @@
     - include_tasks: kitty.yaml
       tags:
         - kitty
+
+    - include_tasks: zoxide.yaml
+      tags:
+        - zoxide

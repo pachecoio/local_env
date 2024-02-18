@@ -1,0 +1,10 @@
+- name: Install zoxide
+  shell: |
+    cargo install zoxide --locked
+- name: add zoxide to path
+  lineinfile:
+    path: ~/.zshrc
+    line: eval "$(zoxide init zsh)"
+- name: Initialize zoxide
+  shell: |
+    zoxide init zsh --cmd cd

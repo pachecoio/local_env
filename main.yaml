@@ -95,3 +95,7 @@
     - include_tasks: zoxide.yaml
       tags:
         - zoxide
+
+    - include_tasks: warp.yaml
+      tags:
+        - warp

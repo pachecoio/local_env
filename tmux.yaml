@@ -14,9 +14,14 @@
     - terminal
   block:
     - name: Install tmux package manager
+      tags:
+        - tmux
       ansible.builtin.git:
         repo: "https://github.com/tmux-plugins/tpm"
         dest: "~/.tmux/plugins/tpm"
 - name: Copy TMUX dotfiles
+  tags:
+    - tmux
+    - terminal
   ansible.builtin.shell: >
     stow -t ~/ -d dotfiles tmux

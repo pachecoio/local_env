@@ -1,0 +1,22 @@
+---
+- name: Local setup for arch linux
+  hosts: localhost
+
+  vars:
+    source_key: "../files/id_ed25519"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_ed25519"
+    go_version: "1.22"
+
+    neovim_name: neovim
+    neovim_ppa: ppa:neovim-ppa/unstable
+    install_state: present
+    python_required_packages:
+      - software-properties-common
+    ycm_packages:
+      - build-essential
+      - cmake
+
+  tasks:
+    - include_tasks: terminal.yaml
+      tags:
+        - terminal

@@ -1,27 +1,45 @@
-- name: Setup TMUX
+- name: Install tmux
   tags:
-    - tmux
-    - terminal
+    - ubuntu
+    - macos
   block:
-    - name: Install tmux
+    - name: Install TMUX
+      tags:
+        - tmux
+        - terminal
       ansible.builtin.homebrew:
         name: tmux
         state: present
 
-- name: Setup TMUX config
+- name: Install and config tmux for arch
+  become: yes
+  become_user: root
   tags:
-    - tmux
-    - terminal
+    - arch
+  pacman:
+    name: tmux
+    state: present
+
+- name: Config tmux
+  tags:
+    - ubuntu
+    - macos
+    - arch
   block:
-    - name: Install tmux package manager
+    - name: Setup TMUX config
       tags:
         - tmux
-      ansible.builtin.git:
-        repo: "https://github.com/tmux-plugins/tpm"
-        dest: "~/.tmux/plugins/tpm"
-- name: Copy TMUX dotfiles
-  tags:
-    - tmux
-    - terminal
-  ansible.builtin.shell: >
-    stow -t ~/ -d dotfiles tmux
+        - terminal
+      block:
+        - name: Install tmux package manager
+          tags:
+            - tmux
+          ansible.builtin.git:
+            repo: "https://github.com/tmux-plugins/tpm"
+            dest: "~/.tmux/plugins/tpm"
+    - name: Copy TMUX dotfiles
+      tags:
+        - tmux
+        - terminal
+      ansible.builtin.shell: >
+        stow -t ~/ -d dotfiles tmux

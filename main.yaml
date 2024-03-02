@@ -20,6 +20,7 @@
     - include_tasks: terminal.yaml
       tags:
         - terminal
+        - arch
 
     - include_tasks: brew.yaml
       tags:
@@ -29,16 +30,19 @@
       tags:
         - ssh
         - terminal
+        - arch
     - include_tasks: git.yaml
       tags:
         - git
     - include_tasks: stow.yaml
       tags:
         - stow
+        - arch
     - include_tasks: tmux.yaml
       tags:
         - tmux
         - terminal
+        - arch
 
     - include_tasks: gdebi.yaml
       tags:

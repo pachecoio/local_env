@@ -19,3 +19,17 @@
   tags:
     - stow
 
+- name: Install stow Arch linux
+  become: yes
+  become_user: root
+  block:
+    - name: Install Stow
+      pacman:
+        name: stow
+        state: present
+  when: ansible_architecture == "x86_64"
+  tags:
+    - stow
+    - arch
+
+

@@ -8,8 +8,6 @@
       register: go_version
     - name: Install Go 1.22.0 Linux
       block:
-        - name: Cleanup golang folder
-          shell: 'rm -rf ~/go'
         - name: Download and unarchive golang
           ansible.builtin.unarchive:
             src: https://go.dev/dl/go{{ go_version.stdout }}.linux-amd64.tar.gz

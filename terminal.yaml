@@ -29,7 +29,8 @@
     - name: Change shell to zsh
       become: yes
       become_user: root
-      shell: chsh -s `which zsh`
+      ansible.builtin.shell: >
+        chsh -s `which zsh`
 
     - name: Cleanup ohmyzsh
       ansible.builtin.shell: >
@@ -52,3 +53,8 @@
       lineinfile:
         path: ~/.zshrc
         line: "plugins=(git zsh-autosuggestions)"
+
+    - name: Add brew to path
+      lineinfile:
+        path: ~/.zshrc
+        line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'

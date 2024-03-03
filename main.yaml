@@ -47,26 +47,32 @@
     - include_tasks: gdebi.yaml
       tags:
         - gdebi
+        - arch
 
     - include_tasks: fonts.yaml
       tags:
         - fonts
         - terminal
+        - arch
 
     - include_tasks: node.yaml
       tags:
         - nvm
         - node
+        - arch
     - include_tasks: python.yaml
       tags:
         - pyenv
         - python
+        - arch
     - include_tasks: rust.yaml
       tags:
         - rust
+        - arch
     - include_tasks: golang.yaml
       tags:
         - golang
+        - arch
     # - include_tasks: encore.yaml
     #   tags:
     #     - golang
@@ -75,18 +81,22 @@
     - include_tasks: neovim.yaml
       tags:
         - nvim
+        - arch
 
     # Tooling
     - include_tasks: fzf.yaml
       tags:
         - tooling
+        - arch
     - include_tasks: ripgrep.yaml
       tags:
         - tooling
+        - arch
 
     - include_tasks: docker.yaml
       tags:
         - docker
+        - arch
 
     - include_tasks: hyper.yaml
       tags:
@@ -99,7 +109,9 @@
     - include_tasks: zoxide.yaml
       tags:
         - zoxide
+        - arch
 
     - include_tasks: warp.yaml
       tags:
         - warp
+        - arch

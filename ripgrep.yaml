@@ -11,3 +11,11 @@
     update_homebrew: yes
   when: ansible_os_family == "Darwin"
 
+- name: Install ripgrep arch linux
+  become: yes
+  become_user: root
+  tags:
+    - arch
+  pacman:
+    name: ripgrep
+    state: present

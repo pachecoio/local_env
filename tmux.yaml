@@ -16,6 +16,8 @@
   become_user: root
   tags:
     - arch
+  timeout: 20
+  ignore_errors: yes
   pacman:
     name: tmux
     state: present

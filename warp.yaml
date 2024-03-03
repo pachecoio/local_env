@@ -2,6 +2,7 @@
   when: ansible_os_family == "Debian"
   tags:
     - warp
+    - ubuntu
   block:
     - name: Ensure folder exists
       become: true
@@ -25,5 +26,35 @@
       tags:
         - warp
       lineinfile:
-        path: ~/.zshrc
+        path: "{{ lookup('env', 'HOME') }}/.zshrc"
+        line: export PATH="$PATH:/opt/warp/"
+
+- name: Warp installation Arch
+  tags:
+    - warp
+    - arch
+  block:
+    - name: Ensure folder exists
+      become: true
+      become_user: root
+      tags:
+        - warp
+      ansible.builtin.file:
+        path: /opt/warp
+        state: directory
+        mode: '0777'
+
+    - name: Install warp ubuntu
+      tags:
+        - warp
+      ansible.builtin.get_url:
+        url: https://releases.warp.dev/stable/v0.2024.02.20.08.01.stable_01/Warp-x86_64.AppImage
+        dest: /opt/warp/warp
+        mode: '0777'
+
+    - name: Add warp to path
+      tags:
+        - warp
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.zshrc"
         line: export PATH="$PATH:/opt/warp/"

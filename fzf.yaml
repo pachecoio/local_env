@@ -4,10 +4,18 @@
     state: present
   when: ansible_os_family == "Debian"
 
+- name: Install fzf arch
+  become: yes
+  become_user: root
+  tags:
+    - arch
+  pacman:
+    name: fzf
+    state: present
+
 - name: Install fzf macos
   ansible.builtin.homebrew:
     name: fzf
     state: present
     update_homebrew: yes
   when: ansible_os_family == "Darwin"
-

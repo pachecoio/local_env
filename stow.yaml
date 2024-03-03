@@ -22,12 +22,10 @@
 - name: Install stow Arch linux
   become: yes
   become_user: root
-  block:
-    - name: Install Stow
-      pacman:
-        name: stow
-        state: present
-  when: ansible_architecture == "x86_64"
+  pacman:
+    name: stow
+    state: present
+  debugger: on_failed
   tags:
     - stow
     - arch

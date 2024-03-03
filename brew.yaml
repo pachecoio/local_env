@@ -1,5 +1,5 @@
 - name: Add brew to path linux
   when: ansible_os_family == "Debian"
   lineinfile:
-    path: ~/.zshrc
+    path: "{{ lookup('env', 'HOME') }}/.zshrc"
     line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'

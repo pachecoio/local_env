@@ -1,4 +1,6 @@
 - name: Install golang linux
+  tags:
+    - arch
   block:
     - name: Get latest Go version
       shell: |
@@ -15,10 +17,8 @@
             src: https://go.dev/dl/go{{ go_version.stdout }}.linux-amd64.tar.gz
             dest: /usr/local
             remote_src: yes
-  when: ansible_os_family == "Debian"
 
 - name: Install golang macos
-
   block:
     - name: Get latest Go version
       shell: |

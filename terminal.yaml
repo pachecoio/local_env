@@ -58,3 +58,12 @@
       lineinfile:
         path: ~/.zshrc
         line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+
+    - name: Change zsh default theme
+      block:
+        - name: Replace theme
+          lineinfile:
+            path: ~/.zshrc
+            search_string: 'ZSH_THEME='
+            line: 'ZSH_THEME="fino"'
+            state: present

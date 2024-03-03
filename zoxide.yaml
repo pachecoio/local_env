@@ -1,10 +1,22 @@
 - name: Install zoxide
+  tags:
+    - ubuntu
+    - arch
+    - macos
   shell: |
     cargo install zoxide --locked
 - name: add zoxide to path
+  tags:
+    - ubuntu
+    - arch
+    - macos
   lineinfile:
     path: ~/.zshrc
     line: eval "$(zoxide init zsh)"
 - name: Initialize zoxide
+  tags:
+    - ubuntu
+    - arch
+    - macos
   shell: |
     zoxide init zsh --cmd cd

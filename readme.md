@@ -31,11 +31,10 @@ echo "YOUR VAULT PASSWORD" > .vault_pass
 ansible-playbook main.yaml --vault-password-file=.vault_pass --become-password-file=.become_pass --tags <YOUR OS>
 ```
 
-> Example:
-    Install on Arch linux
-    ```
+> Example: Install on Arch linux
+```
 ansible-playbook main.yaml --vault-password-file=.vault_pass --become-password-file=.become_pass --tags arch
-    ```
+```
 
 ## Docker config on linux
 

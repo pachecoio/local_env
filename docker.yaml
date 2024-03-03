@@ -19,3 +19,7 @@
       pacman:
         name: docker
         state: present
+    - name: Install docker compose
+      pacman:
+        name: docker-compose
+        state: present

@@ -7,16 +7,24 @@
         echo 1.22.0
       register: go_version
     - name: Install Go 1.22.0 Linux
-      become: yes
-      become_user: root
       block:
         - name: Cleanup golang folder
-          shell: 'rm -rf /usr/local/go'
+          shell: 'rm -rf ~/go'
         - name: Download and unarchive golang
           ansible.builtin.unarchive:
             src: https://go.dev/dl/go{{ go_version.stdout }}.linux-amd64.tar.gz
-            dest: /usr/local
+            dest: ~/
             remote_src: yes
+    - name: add golang to path
+      block:
+        - name: set golang path variable
+          lineinfile:
+            path: ~/.zshrc
+            line: "export GOPATH=~/go"
+        - name: Add gopath variable to path
+          lineinfile:
+            path: ~/.zshrc
+            line: "export PATH=$GOPATH/bin:$PATH"
 
 - name: Install golang macos
   block:

@@ -1,6 +1,6 @@
 - name: Install tmux
+  when: ansible_distribution == 'Darwin'
   tags:
-    - ubuntu
     - macos
   block:
     - name: Install TMUX
@@ -11,13 +11,22 @@
         name: tmux
         state: present
 
+- name: Install tmux ubuntu
+  when: ansible_distribution == 'Ubuntu'
+  tags:
+    - ubuntu
+  become: yes
+  become_user: root
+  apt:
+    name: tmux
+    state: present
+
 - name: Install and config tmux for arch
+  when: ansible_distribution == 'Arch Linux'
   become: yes
   become_user: root
   tags:
     - arch
-  timeout: 20
-  ignore_errors: yes
   pacman:
     name: tmux
     state: present

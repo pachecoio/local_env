@@ -1,4 +1,6 @@
 - name: Install fzf ubuntu
+  become: yes
+  become_user: root
   apt:
     name: fzf
     state: present
@@ -12,6 +14,7 @@
   pacman:
     name: fzf
     state: present
+  when: ansible_distribution  == "Arch Linux"
 
 - name: Install fzf macos
   ansible.builtin.homebrew:

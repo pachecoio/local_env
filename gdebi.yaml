@@ -6,7 +6,7 @@
   apt:
     name: gdebi
     state: present
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution  == "Ubuntu"
 
 - name: Install gdebi ubuntu
   become: true
@@ -16,4 +16,4 @@
   pacman:
     name: gdebi
     state: present
-  when: ansible_os_family == "Debian"
+  when: ansible_distribution  == "Arch Linux"

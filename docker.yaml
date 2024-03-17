@@ -7,7 +7,7 @@
   block:
     - name: install with convenience script
       shell: >
-        curl -fsSL https://get.docker.com | sh --dry-run
+        curl -fsSL https://get.docker.com | sh
 
 - name: Install docker arch
   tags:
@@ -23,3 +23,4 @@
       pacman:
         name: docker-compose
         state: present
+  when: ansible_distribution == "Arch Linux"

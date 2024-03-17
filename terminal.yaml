@@ -1,26 +1,28 @@
 # OS  specific
 
-- name: Install Fish
+- name: Install ZSH
+  become: yes
+  become_user: pacheco
   block:
-    - name: Install fish
+    - name: Install zsh
       ansible.builtin.apt:
         name: zsh
         state: present
       when: ansible_os_family == "Debian"
 
-- name: Install fish on arch linux
-  when: ansible_architecture  == "x86_64"
+- name: Install zsh on arch linux
+  when: ansible_distribution == "Arch Linux"
   tags:
     - arch
   block:
-    - name: Install fish arch
+    - name: Install zsh arch
       pacman:
         name: zsh
         state: present
 
 # OS agnostic
 
-- name: Fish config and utilities
+- name: ZSH config and utilities
   tags:
     - arch
     - ubuntu
@@ -40,6 +42,11 @@
       ansible.builtin.shell: >
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+    - name: Ensure zshrc file exists
+      ansible.builtin.file:
+        path: ~/.zshrc
+        state: touch
+
     - name: Install ohmyzsh autosuggestions
       ansible.builtin.git:
         dest: "~/.zsh/zsh-autosuggestions"
@@ -54,16 +61,17 @@
         path: ~/.zshrc
         line: "plugins=(git zsh-autosuggestions)"
 
-    - name: Add brew to path
-      lineinfile:
-        path: ~/.zshrc
-        line: 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
-
     - name: Change zsh default theme
       block:
         - name: Replace theme
           lineinfile:
             path: ~/.zshrc
-            search_string: 'ZSH_THEME='
+            regexp: '^ZSH_THEME='
             line: 'ZSH_THEME="fino"'
-            state: present
+
+- name: Install gnupg
+  become: yes
+  become_user: root
+  apt:
+    name: gnupg
+    state: present

@@ -60,11 +60,13 @@
         - nvm
         - node
         - arch
+
     - include_tasks: python.yaml
       tags:
         - pyenv
         - python
         - arch
+
     - include_tasks: rust.yaml
       tags:
         - rust
@@ -73,10 +75,6 @@
       tags:
         - golang
         - arch
-    # - include_tasks: encore.yaml
-    #   tags:
-    #     - golang
-    #     - encore
 
     - include_tasks: neovim.yaml
       tags:
@@ -98,20 +96,12 @@
         - docker
         - arch
 
-    - include_tasks: hyper.yaml
-      tags:
-        - hyper
-
-    - include_tasks: kitty.yaml
-      tags:
-        - kitty
-
     - include_tasks: zoxide.yaml
       tags:
         - zoxide
         - arch
 
-    - include_tasks: warp.yaml
+    - include_tasks: nix.yaml
       tags:
-        - warp
+        - nix
         - arch

@@ -1,0 +1,24 @@
+- name: Install mongoshell ubuntu
+  become: yes
+  become_user: root
+  tags:
+    - mongo
+  when: ansible_distribution == 'Ubuntu'
+  block:
+    - name: Retry importing the key
+      apt_key:
+        url: https://www.mongodb.org/static/pgp/server-7.0.asc
+        state: present
+    - name: Ensure list file exists
+      file:
+        path: /etc/apt/sources.list.d/mongodb-org-7.0.list
+        state: touch
+    - name: Add the repository
+      apt_repository:
+        repo: deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse
+        state: present
+    - name: Install mongodb-mongosh
+      apt:
+        name: mongodb-mongosh
+        state: present
+        update_cache: yes

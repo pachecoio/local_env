@@ -110,3 +110,8 @@
       tags:
         - nix
         - arch
+
+    - include_tasks: mongoshell.yaml
+      tags:
+        - mongo
+        - arch

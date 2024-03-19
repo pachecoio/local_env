@@ -101,6 +101,11 @@
         - zoxide
         - arch
 
+    - include_tasks: 1password.yaml
+      tags:
+        - 1password
+        - arch
+
     - include_tasks: nix.yaml
       tags:
         - nix

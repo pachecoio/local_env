@@ -2,7 +2,7 @@
 
 - name: Install ZSH
   become: yes
-  become_user: pacheco
+  become_user: root
   block:
     - name: Install zsh
       ansible.builtin.apt:

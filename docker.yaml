@@ -1,5 +1,6 @@
 - name: Install docker
   tags:
+    - docker
     - ubuntu
     - macos
   become: yes
@@ -8,6 +9,10 @@
     - name: install with convenience script
       shell: >
         curl -fsSL https://get.docker.com | sh
+    - name: Add docker compose alias
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.zshrc"
+        line: "alias docker-compose='docker compose'"
 
 - name: Install docker arch
   tags:

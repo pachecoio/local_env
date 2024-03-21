@@ -1,24 +1,32 @@
-- name: Install mongoshell ubuntu
+- name: Install mongodb utilities ubuntu
   become: yes
   become_user: root
   tags:
     - mongo
   when: ansible_distribution == 'Ubuntu'
   block:
-    - name: Retry importing the key
-      apt_key:
-        url: https://www.mongodb.org/static/pgp/server-7.0.asc
-        state: present
-    - name: Ensure list file exists
-      file:
-        path: /etc/apt/sources.list.d/mongodb-org-7.0.list
-        state: touch
-    - name: Add the repository
-      apt_repository:
-        repo: deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse
-        state: present
-    - name: Install mongodb-mongosh
-      apt:
-        name: mongodb-mongosh
-        state: present
-        update_cache: yes
+    - name: Mongosh installation
+      block:
+        - name: Download mongosh
+          get_url:
+            url: https://downloads.mongodb.com/compass/mongodb-mongosh_2.2.1_amd64.deb
+            dest: /tmp/mongosh.deb
+        - name: Install mongosh
+          apt:
+            deb: /tmp/mongosh.deb
+            state: present
+
+    - name: Mongodb tools installation
+      block:
+        - name: Create temp folder for mongodb tools
+          file:
+            path: /tmp/mongodb-database-tools
+            state: directory
+        - name: Download mongodb tools
+          get_url:
+            url: https://fastdl.mongodb.org/tools/db/mongodb-database-tools-ubuntu2204-x86_64-100.9.4.deb
+            dest: /tmp/mongodb-database-tools/installer.deb
+        - name: Install mongodb tools
+          apt:
+            deb: /tmp/mongodb-database-tools/installer.deb
+            state: present

@@ -30,3 +30,19 @@
           apt:
             deb: /tmp/mongodb-database-tools/installer.deb
             state: present
+
+- name: Install mongodb utilities macos
+  when: ansible_os_family == "Darwin"
+  tags:
+    - mongo
+  block:
+    - name: Install mongosh
+      ansible.builtin.homebrew:
+        name: mongosh
+        state: present
+    - name: Tab brew formula for mongodb tools
+      shell: brew tap mongodb/brew
+    - name: Install mongodb tools
+      ansible.builtin.homebrew:
+        name: mongodb-database-tools
+        state: present

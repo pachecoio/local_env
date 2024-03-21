@@ -70,6 +70,7 @@
             line: 'ZSH_THEME="fino"'
 
 - name: Install gnupg
+  when: ansible_distribution == "Ubuntu"
   become: yes
   become_user: root
   apt:
@@ -80,8 +81,21 @@
   tags:
     - terminal
     - jq
-  become: yes
-  become_user: root
-  apt:
-    name: jq
+  block:
+    - name: install jq ubuntu
+      when: ansible_distribution == "Ubuntu"
+      become: yes
+      become_user: root
+      apt:
+        name: jq
+        state: present
+    - name: install jq macos
+      ansible.builtin.homebrew:
+        name: jq
+        state: present
+
+- name: Install xclip
+  when: ansible_os_family == "Darwin"
+  ansible.builtin.homebrew:
+    name: xclip
     state: present

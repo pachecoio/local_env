@@ -1,5 +1,7 @@
 - name: Install nix package manager ubuntu
+  tags:
+    - nix
   become: yes
   become_user: root
   shell: curl -L https://nixos.org/nix/install | sh -s -- --daemon
-  when: ansible_distribution == 'Ubuntu'
+

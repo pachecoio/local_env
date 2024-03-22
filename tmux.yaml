@@ -54,3 +54,7 @@
         - terminal
       ansible.builtin.shell: >
         stow -t ~/ -d dotfiles tmux
+    - name: Initialize tmux by default on zsh
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.zshrc"
+        line: 'eval "$(tmux attach)"'

@@ -1,12 +1,15 @@
 - name: Install docker
   tags:
     - docker
-    - ubuntu
-    - macos
   become: yes
   become_user: root
   block:
+    - name: Check if docker is already installed
+      ansible.builtin.stat:
+        path: /usr/bin/docker
+      register: docker_installed
     - name: install with convenience script
+      when: docker_installed.stat.exists == False
       shell: >
         curl -fsSL https://get.docker.com | sh
     - name: Add docker compose alias

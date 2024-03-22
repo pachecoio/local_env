@@ -95,6 +95,7 @@
         name: jq
         state: present
     - name: install jq macos
+      when: ansible_os_family == "Darwin"
       ansible.builtin.homebrew:
         name: jq
         state: present

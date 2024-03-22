@@ -4,4 +4,5 @@
   become: yes
   become_user: root
   shell: curl -L https://nixos.org/nix/install | sh -s -- --daemon
+  ignore_errors: yes
 

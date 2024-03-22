@@ -1,4 +1,11 @@
+- name: Check if nix is already installed
+  tags:
+    - nix
+  shell: nix --version
+  register: nix_installed
+  ignore_errors: yes
 - name: Install nix package manager ubuntu
+  when: nix_installed is failed
   tags:
     - nix
   become: yes

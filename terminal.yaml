@@ -3,6 +3,8 @@
 - name: Install ZSH
   become: yes
   become_user: root
+  tags:
+    - terminal
   block:
     - name: Install zsh
       ansible.builtin.apt:
@@ -13,6 +15,7 @@
 - name: Install zsh on arch linux
   when: ansible_distribution == "Arch Linux"
   tags:
+    - terminal
     - arch
   block:
     - name: Install zsh arch
@@ -24,9 +27,7 @@
 
 - name: ZSH config and utilities
   tags:
-    - arch
-    - ubuntu
-    - macos
+    - terminal
   block:
     - name: Change shell to zsh
       become: yes
@@ -70,11 +71,20 @@
             line: 'ZSH_THEME="fino"'
 
     - name: Make zsh start tmux by default
-      lineinfile:
+      blockinfile:
         path: ~/.zshrc
-        line: "if command -v tmux &> /dev/null && [ -z \"$TMUX\" ]; then exec tmux; fi"
+        block: |
+          if [ -z "$TMUX" ]; then
+            if tmux has-session -t main 2>/dev/null; then
+              tmux attach-session -t main
+            else
+              tmux new-session -s main
+            fi
+          fi
 
 - name: Install gnupg
+  tags:
+    - terminal
   when: ansible_distribution == "Ubuntu"
   become: yes
   become_user: root

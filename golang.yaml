@@ -1,12 +1,18 @@
 - name: Install golang linux
   tags:
-    - arch
+    - go
   block:
+    - name: Check if go is already installed
+      shell: go version
+      register: go_installed
+      ignore_errors: yes
     - name: Get latest Go version
+      when: go_installed is failed
       shell: |
         echo 1.22.0
       register: go_version
     - name: Install Go 1.22.0 Linux
+      when: go_installed is failed
       block:
         - name: Download and unarchive golang
           ansible.builtin.unarchive:
@@ -14,6 +20,7 @@
             dest: ~/
             remote_src: yes
     - name: add golang to path
+      when: go_installed is failed
       block:
         - name: set golang path variable
           lineinfile:
@@ -25,22 +32,32 @@
             line: "export PATH=$GOPATH/bin:$PATH"
 
 - name: Install golang macos
+  tags:
+    - go
   block:
+    - name: Check if go is already installed
+      shell: go version
+      register: go_installed
+      ignore_errors: yes
     - name: Get latest Go version
+      when: go_installed is failed
       shell: |
         echo 1.22.0
       register: go_version
     - name: Clear existing install
+      when: go_installed is failed
       become: yes
       become_user: root
       shell: |
         rm -rf /usr/local/go
     - name: Install Go Macos
+      when: go_installed is failed
       become: yes
       become_user: root
       shell: |
         curl -s https://dl.google.com/go/go{{ go_version.stdout }}.darwin-amd64.tar.gz | tar -C /usr/local -xzf -
     - name: add golang to path
+      when: go_installed is failed
       ansible.builtin.shell: >
         echo 'export GOPATH=$HOME/go' >> ~/.zshrc
         echo 'export PATH=$GOPATH/bin:$PATH' >> ~/.zshrc

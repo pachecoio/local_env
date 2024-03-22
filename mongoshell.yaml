@@ -5,7 +5,12 @@
     - mongo
   when: ansible_distribution == 'Ubuntu'
   block:
+    - name: Check if mongosh is already installed
+      ansible.builtin.stat:
+        path: /usr/bin/mongosh
+      register: mongosh_installed
     - name: Mongosh installation
+      when: mongosh_installed.stat.exists == False
       block:
         - name: Download mongosh
           get_url:
@@ -16,6 +21,10 @@
             deb: /tmp/mongosh.deb
             state: present
 
+    - name: Check if mongodb tools are already installed
+      ansible.builtin.stat:
+        path: /usr/bin/mongoimport
+      register: mongo_tools_installed
     - name: Mongodb tools installation
       block:
         - name: Create temp folder for mongodb tools

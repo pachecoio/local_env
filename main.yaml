@@ -15,103 +15,73 @@
     ycm_packages:
       - build-essential
       - cmake
-
   tasks:
     - include_tasks: terminal.yaml
       tags:
         - terminal
-        - arch
-
     - include_tasks: brew.yaml
       tags:
         - brew
-
     - include_tasks: ssh.yaml
       tags:
         - ssh
         - terminal
-        - arch
     - include_tasks: git.yaml
       tags:
         - git
     - include_tasks: stow.yaml
       tags:
         - stow
-        - arch
     - include_tasks: tmux.yaml
       tags:
         - tmux
         - terminal
-        - arch
-
     - include_tasks: gdebi.yaml
       tags:
         - gdebi
-        - arch
-
     - include_tasks: fonts.yaml
       tags:
         - fonts
         - terminal
-        - arch
-
     - include_tasks: node.yaml
       tags:
         - nvm
         - node
-        - arch
-
     - include_tasks: python.yaml
       tags:
         - pyenv
         - python
-        - arch
 
     - include_tasks: rust.yaml
       tags:
         - rust
-        - arch
     - include_tasks: golang.yaml
       tags:
-        - golang
-        - arch
-
+        - go
     - include_tasks: neovim.yaml
       tags:
         - nvim
-        - arch
-
     # Tooling
     - include_tasks: fzf.yaml
       tags:
+        - fzf
         - tooling
-        - arch
     - include_tasks: ripgrep.yaml
       tags:
         - tooling
-        - arch
-
+        - ripgrep
     - include_tasks: docker.yaml
       tags:
         - docker
-        - arch
-
     - include_tasks: zoxide.yaml
       tags:
         - zoxide
-        - arch
-
     - include_tasks: 1password.yaml
       tags:
         - 1password
-        - arch
-
     - include_tasks: nix.yaml
       tags:
         - nix
-        - arch
-
     - include_tasks: mongoshell.yaml
       tags:
         - mongo
-        - arch

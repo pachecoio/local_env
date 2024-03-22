@@ -1,3 +1,10 @@
+- name: Check if rust is already installed
+  tags:
+    - rust
+  shell: rustc --version
+  register: rust_installed
+  ignore_errors: yes
+
 - name: Install Rust all platforms
   tags:
     - arch

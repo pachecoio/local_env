@@ -85,3 +85,6 @@
     - include_tasks: mongoshell.yaml
       tags:
         - mongo
+    - include_tasks: terminal_navigation.yaml
+      tags:
+        - terminal_navigation

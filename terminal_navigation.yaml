@@ -1,0 +1,29 @@
+- name: Install tmux navigations ubuntu
+  tags:
+    - terminal_navigation
+  when: ansible_distribution == 'Ubuntu'
+  block:
+    - name: Ensure local bin exists
+      ansible.builtin.file:
+        path: ~/.local/bin
+        state: directory
+    - name: Ensure local bin folder is in path
+      ansible.builtin.lineinfile:
+        path: ~/.zshrc
+        line: 'export PATH=$PATH:~/.local/bin'
+        create: yes
+    - name: Install executables to path
+      shell: >
+        stow -t ~/.local/bin/ -d dotfiles executables
+
+    - name: Add zsh shortcut to execute the `tmux-sessionizer` script with ctrl + f
+      ansible.builtin.lineinfile:
+        path: ~/.zshrc
+        line: 'bindkey -s ^f "tmux-sessionizer\n"'
+        create: yes
+
+    - name: Add zsh shortcut to execute the `tmux-windonizer` script with ctrl + w
+      ansible.builtin.lineinfile:
+        path: ~/.zshrc
+        line: 'bindkey -s ^w "tmux-windonizer\n"'
+        create: yes

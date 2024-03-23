@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+window=`find ~/personal ~/work -mindepth 1 -maxdepth 5 -type d | fzf`
+window_name=`basename $window | tr ' ' '-' | tr '.' '-'`
+
+if ! tmux list-windows -F "#{window_name}" | grep -q "^$window_name$"; then
+    tmux new-window -n "$window_name" -c "$window"
+fi
+
+tmux select-window -t "$window_name"

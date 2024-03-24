@@ -31,6 +31,7 @@
 - name: Python setup with pyenv ubuntu
   when: ansible_distribution == "Ubuntu"
   tags:
+    - python
     - ubuntu
   block:
     - name: Install python dependencies
@@ -75,3 +76,23 @@
       lineinfile:
         path: "{{ lookup('env', 'HOME') }}/.zshrc"
         line: 'eval "$(pyenv init -)"'
+    - name: Install python 3.12.0
+      shell: |
+        pyenv install 3.12.0
+    - name: Set python 3.12.0 as global
+      shell: |
+        pyenv global 3.12.0
+    - name: Install poetry
+      shell: |
+        curl -sSL https://install.python-poetry.org | python3 -
+    - name: Add poetry to path
+      lineinfile:
+        path: "{{ lookup('env', 'HOME') }}/.zshrc"
+        line: 'export PATH="$HOME/.local/bin:$PATH"'
+    - name: Ensure zsh custom plugins directory exists
+      file:
+        path: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins"
+        state: directory
+    - name: Add poetry completions
+      shell: |
+        poetry completions zsh > {{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/poetry/_poetry

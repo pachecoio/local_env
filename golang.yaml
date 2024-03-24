@@ -2,25 +2,17 @@
   tags:
     - go
   block:
-    - name: Check if go is already installed
-      shell: go version
-      register: go_installed
+    - name: Remove existing go
+      file:
+        path: ~/go
+        state: absent
       ignore_errors: yes
-    - name: Get latest Go version
-      when: go_installed is failed
-      shell: |
-        echo 1.22.0
-      register: go_version
-    - name: Install Go 1.22.0 Linux
-      when: go_installed is failed
-      block:
-        - name: Download and unarchive golang
-          ansible.builtin.unarchive:
-            src: https://go.dev/dl/go{{ go_version.stdout }}.linux-amd64.tar.gz
-            dest: ~/
-            remote_src: yes
+    - name: Download and unarchive golang
+      ansible.builtin.unarchive:
+        src: https://go.dev/dl/go1.22.1.linux-amd64.tar.gz
+        dest: ~/
+        remote_src: yes
     - name: add golang to path
-      when: go_installed is failed
       block:
         - name: set golang path variable
           lineinfile:

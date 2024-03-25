@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+echo "Loading keys..."
+
+serpapi_key=`op item get serpapi-personal --format json | jq -r '.fields[0].value' | tr -d '"'`
+openai_key=`op item get openai-personal --format json | jq -r '.fields[0].value' | tr -d '"'`
+
+read -p "Enter your query: " query
+echo "Searching for $query..."
+
+tmux neww -n "cht.sh" "SERPAPI_API_KEY=$serpapi_key OPENAI_API_KEY=$openai_key poetry run -C ~/.chtsh start \"$query\" | less"

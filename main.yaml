@@ -88,3 +88,6 @@
     - include_tasks: terminal_navigation.yaml
       tags:
         - terminal_navigation
+    - include_tasks: cheatsheet.yaml
+      tags:
+        - cheatsheet

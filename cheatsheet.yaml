@@ -1,0 +1,12 @@
+- name: Load chtsh repository
+  tags:
+    - cheatsheet
+  ansible.builtin.git:
+    repo: "https://github.com/pachecoio/chtsh"
+    dest: "~/.chtsh"
+- name: Install dependencies with poetry
+  tags:
+    - cheatsheet
+  ansible.builtin.shell: "poetry install"
+  args:
+    chdir: "{{ lookup('env', 'HOME') }}/.chtsh"

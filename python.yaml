@@ -91,7 +91,7 @@
         line: 'export PATH="$HOME/.local/bin:$PATH"'
     - name: Ensure zsh custom plugins directory exists
       file:
-        path: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins"
+        path: "{{ lookup('env', 'HOME') }}/.oh-my-zsh/custom/plugins/poetry"
         state: directory
     - name: Add poetry completions
       shell: |

@@ -1,4 +1,5 @@
 - name: Install golang linux
+  when: ansible_distribution == "Ubuntu"
   tags:
     - go
   block:

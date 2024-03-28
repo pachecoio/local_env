@@ -1,7 +1,6 @@
 - name: Install tmux navigations ubuntu
   tags:
     - terminal_navigation
-  when: ansible_distribution == 'Ubuntu'
   block:
     - name: Ensure local bin exists
       ansible.builtin.file:

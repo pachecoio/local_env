@@ -17,7 +17,7 @@
         remote_src: yes
     - name: Check if Noto nerd font exists
       ansible.builtin.stat:
-        path: ~/.fonts/NotoMonoNerdFontMono-Regular.ttf
+        path: ~/.fonts/NotoMonoNerdFont-Regular.ttf
       register: noto_nerd_font
     - name: Download Noto nerd font
       when: noto_nerd_font.stat.exists == False

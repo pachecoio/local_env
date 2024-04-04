@@ -13,7 +13,7 @@
       when: ansible_os_family == "Debian"
 
 - name: Install zsh on arch linux
-  when: ansible_distribution == "Arch Linux"
+  when: ansible_distribution == "Archlinux"
   tags:
     - terminal
     - arch

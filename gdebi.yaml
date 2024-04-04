@@ -7,13 +7,3 @@
     name: gdebi
     state: present
   when: ansible_distribution  == "Ubuntu"
-
-- name: Install gdebi ubuntu
-  become: true
-  become_user: root
-  tags:
-    - arch
-  pacman:
-    name: gdebi
-    state: present
-  when: ansible_distribution  == "Arch Linux"

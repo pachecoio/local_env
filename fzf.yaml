@@ -14,7 +14,7 @@
   pacman:
     name: fzf
     state: present
-  when: ansible_distribution  == "Arch Linux"
+  when: ansible_distribution  == "Archlinux"
 
 - name: Install fzf macos
   ansible.builtin.homebrew:

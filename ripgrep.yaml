@@ -21,4 +21,4 @@
   pacman:
     name: ripgrep
     state: present
-  when: ansible_distribution  == "Arch Linux"
+  when: ansible_distribution  == "Archlinux"

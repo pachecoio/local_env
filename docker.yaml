@@ -1,4 +1,5 @@
-- name: Install docker
+- name: Install docker ubuntu
+  when: ansible_distribution == "Ubuntu"
   tags:
     - docker
   become: yes
@@ -35,4 +36,4 @@
       pacman:
         name: docker-compose
         state: present
-  when: ansible_distribution == "Arch Linux"
+  when: ansible_distribution == "Archlinux"

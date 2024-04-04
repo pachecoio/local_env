@@ -22,7 +22,7 @@
     state: present
 
 - name: Install and config tmux for arch
-  when: ansible_distribution == 'Arch Linux'
+  when: ansible_distribution == 'Archlinux'
   become: yes
   become_user: root
   tags:

@@ -23,7 +23,7 @@
       when: ansible_os_family == "Debian"
 
 - name: Install neovim dependencies arch
-  when: ansible_distribution == "Arch Linux"
+  when: ansible_distribution == "Archlinux"
   become: true
   become_user: root
   tags:
@@ -76,7 +76,7 @@
       pacman:
         name: neovim
         state: present
-      when: ansible_distribution == "Arch Linux"
+      when: ansible_distribution == "Archlinux"
 
     - name: Insttall neovim macos
       ansible.builtin.homebrew:

@@ -20,7 +20,7 @@
     - stow
 
 - name: Install stow Arch linux
-  when: ansible_distribution  == "Arch Linux"
+  when: ansible_distribution  == "Archlinux"
   become: yes
   become_user: root
   pacman:

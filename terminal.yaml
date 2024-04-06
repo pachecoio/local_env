@@ -19,6 +19,8 @@
     - arch
   block:
     - name: Install zsh arch
+      become: yes
+      become_user: root
       pacman:
         name: zsh
         state: present
@@ -76,7 +78,7 @@
         block: |
           if [ -z "$TMUX" ]; then
             if tmux has-session -t main 2>/dev/null; then
-              tmux attach-session -t main
+              tmux attach-session -t main \; new-window
             else
               tmux new-session -s main
             fi
